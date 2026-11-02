@@ -33,3 +33,9 @@ jobs:
         run: |
           echo "CI/CD tool files:"
           ls -la salesforce-cicd
+
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
