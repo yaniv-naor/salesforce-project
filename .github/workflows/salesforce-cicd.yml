@@ -57,7 +57,16 @@ jobs:
         run: python salesforce-cicd/cicd.py authenticate
         
 
+      # - name: Check Salesforce authentication
+      #   if: always()
+      #   run: |
+      #     sf org display --target-org $(cat salesforce-cicd/target_org.txt) --json
+
+
       - name: Check Salesforce authentication
         if: always()
         run: |
-          sf org display --target-org $(cat salesforce-cicd/target_org.txt) --json
+          echo "Target org file:"
+          cat salesforce-cicd/target_org.txt
+          echo "Authenticated orgs:"
+          sf org list --json
