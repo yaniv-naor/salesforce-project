@@ -51,4 +51,6 @@ jobs:
 
 
       - name: Authenticate Salesforce
+        env:
+          auth_url: ${{ secrets.auth_url }}
         run: python salesforce-cicd/cicd.py authenticate
