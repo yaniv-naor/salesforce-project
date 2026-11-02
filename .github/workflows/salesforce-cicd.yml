@@ -9,5 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Salesforce project
+        uses: actions/checkout@v4
+
       - name: Test workflow
-        run: echo "Salesforce CI/CD workflow is running!"
+        run: |
+          echo "Salesforce CI/CD workflow is running!"
+          echo "Current directory:"
+          pwd
+          echo "Project files:"
+          ls -la
