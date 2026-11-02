@@ -51,4 +51,4 @@ jobs:
 
 
       - name: Authenticate Salesforce
-        run: python salesforce-cicd/Pipeline/cicd.py authenticate
+        run: python salesforce-cicd/cicd.py authenticate
