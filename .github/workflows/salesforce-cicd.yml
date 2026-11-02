@@ -19,3 +19,17 @@ jobs:
           pwd
           echo "Project files:"
           ls -la
+
+      - name: Checkout salesforce cicd repository
+        uses: actions/checkout@v4
+        with:
+          # שם המשתמש/הארגון ושם המאגר האחר
+          repository: 'yaniv-naor/salesforce-cicd'
+          
+          # לאיזו תיקייה בתוך השרת להוריד את המאגר האחר (כדי שלא יקרוס על האפליקציה)
+          path: 'salesforce-cicd'
+
+      - name: Test files
+        run: |
+          echo "CI/CD tool files:"
+          ls -la salesforce-cicd
