@@ -33,11 +33,22 @@ jobs:
 
 
 
-      - name: Configure environment variables
+      # - name: Configure environment variables
+      #   env:
+      #     auth_url: ${{ secrets.auth_url }}
+      #     SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+      #   run: |
+      #     echo "SF_TARGET_ENV: $SF_TARGET_ENV"
+      #     sf --version
+      #     python --version
+
+
+      - name: Configure Salesforce authentication
         env:
           auth_url: ${{ secrets.auth_url }}
-          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
         run: |
-          echo "SF_TARGET_ENV: $SF_TARGET_ENV"
-          sf --version
-          python --version
+          python -c "import os; from pathlib import Path; p = Path('config/config.json'); content = p.read_text(); p.write_text(content.replace('#{auth_url}#', os.environ['auth_url']))"
+
+
+      - name: Authenticate Salesforce
+        run: python salesforce-cicd/Pipeline/cicd.py authenticate
