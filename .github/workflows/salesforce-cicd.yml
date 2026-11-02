@@ -12,15 +12,7 @@ jobs:
       - name: Checkout Salesforce project
         uses: actions/checkout@v4
 
-      - name: Test workflow
-        run: |
-          echo "Salesforce CI/CD workflow is running!"
-          echo "Current directory:"
-          pwd
-          echo "Project files:"
-          ls -la
-
-      - name: Checkout salesforce cicd repository
+      - name: Checkout Salesforce CICD repository
         uses: actions/checkout@v4
         with:
           # שם המשתמש/הארגון ושם המאגר האחר
@@ -29,13 +21,23 @@ jobs:
           # לאיזו תיקייה בתוך השרת להוריד את המאגר האחר (כדי שלא יקרוס על האפליקציה)
           path: 'salesforce-cicd'
 
-      - name: Test files
-        run: |
-          echo "CI/CD tool files:"
-          ls -la salesforce-cicd
 
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+
+
+      - name: Configure environment variables
+        env:
+          auth_url: ${{ secrets.auth_url }}
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: |
+          echo "SF_TARGET_ENV: $SF_TARGET_ENV"
+          sf --version
+          python --version
