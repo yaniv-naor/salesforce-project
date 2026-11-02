@@ -1,0 +1,53 @@
+{
+  "orgName": "TEST",
+  "edition": "Enterprise",
+  "language": "iw",
+  "features": [
+    "Communities", 
+    "Sites", 
+    "ContactsToMultipleAccounts", 
+    "ForceComPlatform", 
+    "DeferSharingCalc"
+  ],
+  "settings": {
+    "experienceBundleSettings": {
+        "enableExperienceBundleMetadata":true
+    },
+    "communitiesSettings": {
+        "enableNetworksEnabled": true
+    },
+      "experienceBundleSettings": {
+        "enableExperienceBundleMetadata":true
+    },
+    "lightningExperienceSettings": {
+        "enableS1DesktopEnabled": true
+    },
+      "languageSettings": {
+        "enableTranslationWorkbench": true,
+        "enableEndUserLanguages": true
+    },
+    "omniChannelSettings": {
+        "enableOmniChannel": true
+    },    
+    "caseSettings": {
+        "systemUserEmail": "orghashkal@mof.gov.il"
+    }, 
+    "enhancedNotesSettings": {
+        "enableEnhancedNotes": true
+    },
+    "emailAdministrationSettings": {
+        "enableEnhancedEmailEnabled": true
+    },
+    "pathAssistantSettings": {
+        "pathAssistantEnabled": true
+    }
+  },     
+  "objectSettings": {
+      "account": {
+          "sharingModel": "private"
+      },
+      "contact": {
+          "sharingModel": "controlledByParent"
+      }
+  }
+}
