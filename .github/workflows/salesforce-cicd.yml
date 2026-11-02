@@ -71,7 +71,11 @@ jobs:
       - name: Check Salesforce authentication
         if: always()
         run: |
+          echo "CI/CD log:"
+          cat salesforce-cicd/cicd.log
+
           echo "Target org file:"
           cat salesforce-cicd/target_org.txt
+
           echo "Authenticated orgs:"
           sf org list --json
