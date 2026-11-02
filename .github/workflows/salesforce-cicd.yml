@@ -54,7 +54,9 @@ jobs:
         env:
           auth_url: ${{ secrets.auth_url }}
           SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
-        run: python salesforce-cicd/cicd.py authenticate
+        run: |
+          python salesforce-cicd/cicd.py authenticate
+          sf org display --target-org $(cat salesforce-cicd/target_org.txt) --json
         
 
       - name: Check Salesforce authentication
