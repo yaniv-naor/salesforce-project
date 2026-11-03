@@ -43,8 +43,8 @@ jobs:
       #     python --version
 
 
-      - name: Configure Salesforce CLI
-        run: sf config set disable-telemetry true
+      # - name: Configure Salesforce CLI
+      #   run: sf config set disable-telemetry true
 
 
       - name: Configure Salesforce authentication
@@ -60,16 +60,6 @@ jobs:
           SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
         run: python salesforce-cicd/cicd.py authenticate
 
-
-      - name: Debug Salesforce CLI output
-        if: always()
-        run: |
-          sf org login sfdx-url --sfdx-url-file config/config.json --json
-
-      # - name: Check Salesforce authentication
-      #   if: always()
-      #   run: |
-      #     sf org display --target-org $(cat salesforce-cicd/target_org.txt) --json
 
 
       - name: Check Salesforce authentication
