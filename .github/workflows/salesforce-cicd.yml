@@ -69,4 +69,4 @@ jobs:
           cat salesforce-cicd/cicd.log
 
           echo "Target org file:"
-          cat target_org.txt
+          cat salesforce-cicd/target_org.txt
