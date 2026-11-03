@@ -69,7 +69,4 @@ jobs:
           cat salesforce-cicd/cicd.log
 
           echo "Target org file:"
-          cat salesforce-cicd/target_org.txt
-
-          echo "Authenticated orgs:"
-          sf org list --json
+          cat target_org.txt
