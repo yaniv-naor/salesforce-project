@@ -15,12 +15,8 @@ jobs:
       - name: Checkout Salesforce CICD repository
         uses: actions/checkout@v4
         with:
-          # שם המשתמש/הארגון ושם המאגר האחר
           repository: 'yaniv-naor/salesforce-cicd'
-          
-          # לאיזו תיקייה בתוך השרת להוריד את המאגר האחר (כדי שלא יקרוס על האפליקציה)
           path: 'salesforce-cicd'
-
 
 
       - name: Set up Python
@@ -30,21 +26,6 @@ jobs:
 
       - name: Install Salesforce CLI
         run: npm install --global @salesforce/cli
-
-
-
-      # - name: Configure environment variables
-      #   env:
-      #     auth_url: ${{ secrets.auth_url }}
-      #     SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
-      #   run: |
-      #     echo "SF_TARGET_ENV: $SF_TARGET_ENV"
-      #     sf --version
-      #     python --version
-
-
-      # - name: Configure Salesforce CLI
-      #   run: sf config set disable-telemetry true
 
 
       - name: Configure Salesforce authentication
@@ -61,15 +42,11 @@ jobs:
         run: python salesforce-cicd/cicd.py authenticate
 
 
-
-      # - name: Check Salesforce authentication
-      #   if: always()
-      #   run: |
-      #     echo "CI/CD log:"
-      #     cat salesforce-cicd/cicd.log
-
-      #     echo "Target org file:"
-      #     cat salesforce-cicd/target_org.txt
+      - name: Preparation Salesforce
+        env:
+          # auth_url: ${{ secrets.auth_url }}
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py prepare
 
 
       - name: Validate Salesforce
