@@ -1,3 +1,8 @@
 {
-
+    "filesReplacement": [
+        {
+            "sourceFile": ".\\filereplacement\\Status__c.field-meta.xml",
+            "targetFile": "force-app\\main\\default\\objects\\Request__c\\fields\\Status__c.field-meta.xml"
+        }
+    ]
 }
