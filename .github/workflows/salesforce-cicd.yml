@@ -62,11 +62,18 @@ jobs:
 
 
 
-      - name: Check Salesforce authentication
-        if: always()
-        run: |
-          echo "CI/CD log:"
-          cat salesforce-cicd/cicd.log
+      # - name: Check Salesforce authentication
+      #   if: always()
+      #   run: |
+      #     echo "CI/CD log:"
+      #     cat salesforce-cicd/cicd.log
 
-          echo "Target org file:"
-          cat salesforce-cicd/target_org.txt
+      #     echo "Target org file:"
+      #     cat salesforce-cicd/target_org.txt
+
+
+      - name: Validate Salesforce
+        env:
+          auth_url: ${{ secrets.auth_url }}
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py validate
