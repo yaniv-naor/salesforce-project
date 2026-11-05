@@ -1,3 +1,3 @@
 {
-    "sfdxAuthUrl": "force://PlatformCLI::5Aep861s06Svld5nGb_DQI1JmTkWqcJT.AcVIkMi4lSExz07hG3DB5Vi_HA.1NtC2aekeg9ePbb.j40l5kmK_U2@orgfarm-050bd739a5-dev-ed.develop.my.salesforce.com"
+    "sfdxAuthUrl": "#{auth_url}#"
 }
