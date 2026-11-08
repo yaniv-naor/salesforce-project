@@ -1,0 +1,33 @@
+name: Salesforce CI
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - test
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Salesforce Validate
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ github.base_ref == 'dev' && 'dev' || github.base_ref == 'test' && 'test' || 'prod-validation' }}
+
+    steps:
+      - name: Checkout Salesforce Project
+        uses: actions/checkout@v4
+
+      - name: Checkout Salesforce CICD repository
+        uses: actions/checkout@v4
+        with:
+          repository: yaniv-naor/salesforce-cicd
+          path: salesforce-cicd
+
+      - name: Display Environment
+        run: |
+          echo "Target branch: ${{ github.base_ref }}"
+          echo "GitHub Environment: ${{ job.environment }}"
