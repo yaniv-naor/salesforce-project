@@ -36,7 +36,7 @@ jobs:
       - name: Install Salesforce CLI
         run: |
           npm install --global @salesforce/cli
-          sf --version
+          sf --version --json
 
       - name: Copy Configuration File
         run: |
