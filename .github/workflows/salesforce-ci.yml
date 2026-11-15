@@ -63,7 +63,12 @@ jobs:
           SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
         run: python salesforce-cicd/cicd.py authenticate
 
-      - name: Display Target Environment
-        run: |
-          echo "Target branch: ${{ github.base_ref }}"
-          echo "Salesforce environment: ${{ vars.SF_TARGET_ENV }}"
+      - name: Prepare
+        env:
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py prepare
+
+      - name: Validate
+        env:
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py validate
