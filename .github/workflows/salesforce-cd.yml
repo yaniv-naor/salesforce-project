@@ -1,0 +1,79 @@
+
+name: Salesforce CD
+
+on:
+  push:
+    branches:
+      - dev
+      - test
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: salesforce-deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Salesforce Deploy
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ github.ref_name == 'dev' && 'dev' || github.ref_name == 'test' && 'test' || 'prod' }}
+
+    steps:
+      - name: Checkout Salesforce Project
+        uses: actions/checkout@v4
+
+      - name: Checkout CI/CD Engine
+        uses: actions/checkout@v4
+        with:
+          repository: yaniv-naor/salesforce-cicd
+          path: salesforce-cicd
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Salesforce CLI
+        run: |
+          npm install --global @salesforce/cli
+          sf --version
+
+      - name: Copy Configuration File
+        run: |
+          mkdir -p config
+          cp salesforce-cicd/config/config.json config/config.json
+
+      - name: Configure Authentication URL
+        env:
+          auth_url: ${{ secrets.AUTH_URL }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          config_path = Path("config/config.json")
+          content = config_path.read_text(encoding="utf-8")
+          content = content.replace("#{auth_url}#", os.environ["auth_url"])
+          config_path.write_text(content, encoding="utf-8")
+          PY
+
+      - name: Authenticate
+        env:
+          auth_url: ${{ secrets.AUTH_URL }}
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py authenticate
+
+      - name: Prepare
+        env:
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py prepare
+
+      - name: Deploy
+        env:
+          SF_TARGET_ENV: ${{ vars.SF_TARGET_ENV }}
+        run: python salesforce-cicd/cicd.py deploy
